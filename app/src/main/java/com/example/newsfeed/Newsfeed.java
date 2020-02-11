@@ -23,6 +23,8 @@ public class Newsfeed extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newsfeed);
 
+        callHomeFragment();
+
         firebaseAuth = FirebaseAuth.getInstance();
         bottomNavigationView = findViewById(R.id.newsFeed_bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);

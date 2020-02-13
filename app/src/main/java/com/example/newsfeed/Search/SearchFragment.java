@@ -29,4 +29,32 @@ public class SearchFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
+    /*private void searchPosts(final String searchQuery){
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("Posts");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postList.clear();
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    ModelPost modelPost = ds.getValue(ModelPost.class);
+
+                    if (modelPost.getpTitle().toLowerCase().contains(searchQuery.toLowerCase()) ||
+                            modelPost.getpDescription().toLowerCase().contains(searchQuery.toLowerCase())){
+                        postList.add(modelPost);
+                    }
+                    adapterPosts = new AdapterPosts(getActivity(), postList);
+                    recyclerView.setAdapter(adapterPosts);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(TAG, "loadPosts: cancelled" + databaseError.getMessage());
+                Toast.makeText(getActivity(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }*/
+
 }

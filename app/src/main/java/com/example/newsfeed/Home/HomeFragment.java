@@ -73,12 +73,10 @@ public class HomeFragment extends Fragment {
 
     private void loadPosts(){
 
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("Posts");
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 postList.clear();
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     ModelPost modelPost = ds.getValue(ModelPost.class);

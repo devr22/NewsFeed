@@ -17,6 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
 import com.example.newsfeed.Model.ModelPost;
 import com.example.newsfeed.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -30,9 +36,19 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     Context context;
     List<ModelPost> postList;
 
+    String myUid;
+
+    private DatabaseReference likesRef;
+    DatabaseReference postsRef;
+
+    boolean mProcessLike = false;
+
     public AdapterPosts(Context context, List<ModelPost> postList) {
         this.context = context;
         this.postList = postList;
+        myUid = FirebaseAuth.getInstance().getUid();
+        likesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+        postsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
     }
 
     @NonNull
@@ -44,17 +60,18 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
 
         String uid = postList.get(position).getUid();
-        String uEmail = postList.get(position).getuEmail();
-        String uName = postList.get(position).getuName();
+        String uEmail = postList.get(position).getUemail();
+        String uName = postList.get(position).getUname();
         String udp = postList.get(position).getUdp();
         String pId = postList.get(position).getpId();
-        String pTitle = postList.get(position).getpTitle();
-        String pDescription = postList.get(position).getpDescription();
+        String pTitle = postList.get(position).getPtitle();
+        String pDescription = postList.get(position).getPdescription();
         String pImage = postList.get(position).getpImage();
         String pTimeStamp = postList.get(position).getpTime();
+        String pLikes = postList.get(position).getpLikes();
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(Long.parseLong(pTimeStamp));
@@ -65,6 +82,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         holder.timeTV.setText(pTime);
         holder.titleTV.setText(pTitle);
         holder.descriptionTV.setText(pDescription);
+        holder.likesTV.setText(pLikes + "Likes");
 
         // set user dp
         try{
@@ -97,20 +115,46 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
              @Override
              public void onClick(View view) {
 
+                 final int pLikes = Integer.parseInt(postList.get(position).getpLikes());
+                 mProcessLike = true;
+                 final String postId = postList.get(position).getpId();
+
+                 likesRef.addValueEventListener(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (mProcessLike){
+                            if (dataSnapshot.child(postId).hasChild(myUid)){
+                                postsRef.child(postId).child("pLikes").setValue("" + (pLikes-1));
+                                likesRef.child(postId).child(myUid).removeValue();
+                                mProcessLike = false;
+                            }
+                            else {
+                                postsRef.child(postId).child("pLikes").setValue("" + (pLikes+1));
+                                likesRef.child(postId).child(myUid).setValue("Liked");
+                                mProcessLike = false;
+                            }
+                        }
+                     }
+
+                     @Override
+                     public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                     }
+                 });
              }
          });
 
         holder.commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(context, "Comment", Toast.LENGTH_SHORT).show();
             }
         });
 
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
             }
         });
 

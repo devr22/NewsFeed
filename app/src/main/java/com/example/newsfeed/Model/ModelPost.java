@@ -2,20 +2,21 @@ package com.example.newsfeed.Model;
 
 public class ModelPost {
 
-    String pId, pTitle, pDescription, pImage, pTime, uid, uEmail, uName, udp;
+    String pId, ptitle, pdescription, pLikes, pImage, pTime, uid, uemail, uname, udp;
 
     public ModelPost() {
     }
 
-    public ModelPost(String pId, String pTitle, String pDescription, String pImage, String pTime, String uid, String uEmail, String uName, String udp) {
+    public ModelPost(String pId, String ptitle, String pdescription, String pLikes, String pImage, String pTime, String uid, String uemail, String uname, String udp) {
         this.pId = pId;
-        this.pTitle = pTitle;
-        this.pDescription = pDescription;
+        this.ptitle = ptitle;
+        this.pdescription = pdescription;
+        this.pLikes = pLikes;
         this.pImage = pImage;
         this.pTime = pTime;
         this.uid = uid;
-        this.uEmail = uEmail;
-        this.uName = uName;
+        this.uemail = uemail;
+        this.uname = uname;
         this.udp = udp;
     }
 
@@ -27,20 +28,28 @@ public class ModelPost {
         this.pId = pId;
     }
 
-    public String getpTitle() {
-        return pTitle;
+    public String getPtitle() {
+        return ptitle;
     }
 
-    public void setpTitle(String pTitle) {
-        this.pTitle = pTitle;
+    public void setPtitle(String ptitle) {
+        this.ptitle = ptitle;
     }
 
-    public String getpDescription() {
-        return pDescription;
+    public String getPdescription() {
+        return pdescription;
     }
 
-    public void setpDescription(String pDescription) {
-        this.pDescription = pDescription;
+    public void setPdescription(String pdescription) {
+        this.pdescription = pdescription;
+    }
+
+    public String getpLikes() {
+        return pLikes;
+    }
+
+    public void setpLikes(String pLikes) {
+        this.pLikes = pLikes;
     }
 
     public String getpImage() {
@@ -67,20 +76,20 @@ public class ModelPost {
         this.uid = uid;
     }
 
-    public String getuEmail() {
-        return uEmail;
+    public String getUemail() {
+        return uemail;
     }
 
-    public void setuEmail(String uEmail) {
-        this.uEmail = uEmail;
+    public void setUemail(String uemail) {
+        this.uemail = uemail;
     }
 
-    public String getuName() {
-        return uName;
+    public String getUname() {
+        return uname;
     }
 
-    public void setuName(String uName) {
-        this.uName = uName;
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
     public String getUdp() {

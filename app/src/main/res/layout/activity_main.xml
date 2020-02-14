@@ -3,17 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".MainActivity"
     android:background="#fff">
-
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Socialia"
-        android:textStyle="bold"
-        android:textSize="64sp"/>-->
 
     <ImageView
         android:layout_width="200dp"
@@ -21,6 +15,22 @@
         android:src="@drawable/logo"
         android:layout_marginBottom="70dp"
         android:background="@null"/>
+
+    <com.agrawalsuneet.dotsloader.loaders.LazyLoader
+        android:id="@+id/loaderDots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="30dp"
+        app:lazyloader_animDur="300"
+        app:lazyloader_dotsDist="10dp"
+        app:lazyloader_dotsRadius="16dp"
+        app:lazyloader_firstDelayDur="150"
+        app:lazyloader_firstDotColor="#ff0000"
+        app:lazyloader_interpolator="@android:anim/decelerate_interpolator"
+        app:lazyloader_secondDelayDur="300"
+        app:lazyloader_secondDotColor="#4caf50"
+        app:lazyloader_thirdDotColor="#ffeb3b" />
 
 
 </LinearLayout>

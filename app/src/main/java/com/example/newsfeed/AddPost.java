@@ -168,6 +168,7 @@ public class AddPost extends AppCompatActivity {
                                 hashMap.put("pImage", downloadUri);
                                 hashMap.put("pVideo", "");
                                 hashMap.put("pTime", timeStamp);
+                                hashMap.put("pLikes", "0");
 
                                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Posts");
                                 dbRef.child(timeStamp).setValue(hashMap)

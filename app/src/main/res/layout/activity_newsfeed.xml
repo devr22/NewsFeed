@@ -9,7 +9,6 @@
     android:gravity="center"
     tools:context=".Newsfeed">
 
-    <!-- frame layout -->
     <FrameLayout
         android:id="@+id/newsFeed_container"
         android:layout_width="match_parent"

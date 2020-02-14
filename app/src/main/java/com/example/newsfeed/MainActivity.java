@@ -1,15 +1,18 @@
 package com.example.newsfeed;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.agrawalsuneet.dotsloader.loaders.LazyLoader;
 import com.example.newsfeed.UserInfo.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     private String[] appPermissions;
 
+    LazyLoader lazyLoader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +34,23 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        lazyLoader = findViewById(R.id.loaderDots);
+        LazyLoader loader = new LazyLoader(this, 30, 20, ContextCompat.getColor(this, R.color.loader_selected),
+                ContextCompat.getColor(this, R.color.loader_selected),
+                ContextCompat.getColor(this, R.color.loader_selected));
+        loader.setAnimDuration(500);
+        loader.setFirstDelayDuration(100);
+        loader.setSecondDelayDuration(200);
+        loader.setInterpolator(new LinearInterpolator());
+
+        lazyLoader.addView(loader);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 getAppPermissions();
                 firebaseAuth = FirebaseAuth.getInstance();
                 checkUserStatus();
-
             }
         },Splash_time_Out);
 

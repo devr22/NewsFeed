@@ -2,12 +2,12 @@ package com.example.newsfeed.Model;
 
 public class ModelPost {
 
-    String pId, ptitle, pdescription, pLikes, pImage, pTime, uid, uemail, uname, udp;
+    String pId, ptitle, pdescription, pLikes, pImage, pTime, uid, uemail, uname, udp, pVideo;
 
     public ModelPost() {
     }
 
-    public ModelPost(String pId, String ptitle, String pdescription, String pLikes, String pImage, String pTime, String uid, String uemail, String uname, String udp) {
+    public ModelPost(String pId, String ptitle, String pdescription, String pLikes, String pImage, String pTime, String uid, String uemail, String uname, String udp, String pVideo) {
         this.pId = pId;
         this.ptitle = ptitle;
         this.pdescription = pdescription;
@@ -18,6 +18,7 @@ public class ModelPost {
         this.uemail = uemail;
         this.uname = uname;
         this.udp = udp;
+        this.pVideo = pVideo;
     }
 
     public String getpId() {
@@ -98,5 +99,13 @@ public class ModelPost {
 
     public void setUdp(String udp) {
         this.udp = udp;
+    }
+
+    public String getpVideo() {
+        return pVideo;
+    }
+
+    public void setpVideo(String pVideo) {
+        this.pVideo = pVideo;
     }
 }

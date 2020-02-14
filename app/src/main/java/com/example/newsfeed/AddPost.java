@@ -70,16 +70,9 @@ public class AddPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
-        /*ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Add New Post");
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);*/
-
         initViews();
         firebaseAuth = FirebaseAuth.getInstance();
         checkUserStatus();
-
-//        actionBar.setSubtitle(email);
 
         // get user info
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -173,6 +166,7 @@ public class AddPost extends AppCompatActivity {
                                 hashMap.put("ptitle", title);
                                 hashMap.put("pdescription", description);
                                 hashMap.put("pImage", downloadUri);
+                                hashMap.put("pVideo", "");
                                 hashMap.put("pTime", timeStamp);
 
                                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Posts");
@@ -210,8 +204,8 @@ public class AddPost extends AppCompatActivity {
                             Log.d(TAG, "onFailure: error storage "+ e.getMessage() );
                         }
                     });
-        } else {
-
+        }
+        else {
             //Post without image
             HashMap<Object, String> hashMap = new HashMap<>();
             hashMap.put("uid", uid);
@@ -222,7 +216,9 @@ public class AddPost extends AppCompatActivity {
             hashMap.put("ptitle", title);
             hashMap.put("pdescription", description);
             hashMap.put("pImage", "noImage");
+            hashMap.put("pVideo", "");
             hashMap.put("pTime", timeStamp);
+            hashMap.put("pLikes", "0");
 
             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Posts");
             dbRef.child(timeStamp).setValue(hashMap)

@@ -6,6 +6,9 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.newsfeed.UserInfo.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     public static final int PERMISSION_REQUEST_CODE = 1234;
+    private static int Splash_time_Out = 2500;
 
     FirebaseAuth firebaseAuth;
     private String[] appPermissions;
@@ -21,11 +25,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        getAppPermissions();
-        firebaseAuth = FirebaseAuth.getInstance();
-        checkUserStatus();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getAppPermissions();
+                firebaseAuth = FirebaseAuth.getInstance();
+                checkUserStatus();
+
+            }
+        },Splash_time_Out);
+
+
 
     }
 

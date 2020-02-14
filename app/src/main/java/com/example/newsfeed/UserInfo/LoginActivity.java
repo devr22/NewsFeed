@@ -136,10 +136,8 @@ public class LoginActivity extends AppCompatActivity {
         String name = user.getDisplayName();
         Uri image = user.getPhotoUrl();
 
-        //when user is registered store user info in FireBase realtime database using HashMap
         HashMap<Object, String> hashMap = new HashMap<>();
 
-        //put info in HashMap
         hashMap.put("email", email);
         hashMap.put("uid", uid);
         hashMap.put("name", name);

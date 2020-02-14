@@ -8,6 +8,8 @@
     android:gravity="center"
     tools:context=".UserInfo.LoginActivity">
 
+
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googleLoginBtn"
         android:layout_width="match_parent"

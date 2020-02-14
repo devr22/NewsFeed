@@ -5,6 +5,28 @@
     android:layout_height="match_parent"
     tools:context=".AddPost">
 
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Post"
+            android:layout_marginStart="20dp"/>
+
+
+    </LinearLayout>-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,27 +38,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:hint="Enter Title"
+            android:hint="Title"
             android:background="@drawable/editextstyle"
             android:singleLine="true"/>
-
-        <ImageView
-            android:id="@+id/post_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="200dp"
-            android:background="@color/colorAccent"/>
 
         <EditText
             android:id="@+id/post_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:hint="Enter Description"
+            android:hint="Description"
             android:background="@drawable/editextstyle"
-            android:minHeight="120dp"
+            android:minHeight="150dp"
             android:gravity="start"
             android:inputType="textCapSentences|textMultiLine"/>
+
+        <ImageView
+            android:id="@+id/post_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            android:background="#DAE0E2"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*Click on the above layout to upload photo"/>
 
         <Button
             android:id="@+id/post_upload"

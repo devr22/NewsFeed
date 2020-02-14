@@ -11,24 +11,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="6dp">
+        android:background="#EAF0F1">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/user_dp"
-            android:layout_marginTop="5dp"
+            android:layout_centerVertical="true"
             app:queryHint="Search Post or User"/>
 
-        <ImageView
-            android:id="@+id/user_dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_post"
+        <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+            android:id="@+id/search_dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:scaleType="centerCrop"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"/>
+            android:src="@drawable/ic_default_profile_photo"
+            app:c_background_color="@color/colorPrimary"
+            android:layout_centerVertical="true"/>
+
 
     </RelativeLayout>
 
@@ -36,6 +37,6 @@
         android:id="@+id/search_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp"/>
+        android:layout_marginTop="2dp"/>
 
 </LinearLayout>

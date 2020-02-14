@@ -1,6 +1,8 @@
 package com.example.newsfeed.Adapter;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +45,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     private DatabaseReference likesRef;
     DatabaseReference postsRef;
 
-    boolean mProcessLike = false;
+    private boolean mProcessLike = false;
 
     public AdapterPosts(Context context, List<ModelPost> postList) {
         this.context = context;
@@ -60,7 +64,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyHolder holder, final int position) {
 
         String uid = postList.get(position).getUid();
         String uEmail = postList.get(position).getUemail();
@@ -72,13 +76,13 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String pImage = postList.get(position).getpImage();
         String pTimeStamp = postList.get(position).getpTime();
         String pLikes = postList.get(position).getpLikes();
+        String pVideo = postList.get(position).getpVideo();
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(Long.parseLong(pTimeStamp));
         String pTime = DateFormat.format("dd/MM/yyyy hh:mm: aa", calendar).toString();
 
         holder.nameTV.setText(uName);
-        Log.d(TAG, "onBindViewHolder: " + uName);
         holder.timeTV.setText(pTime);
         holder.titleTV.setText(pTitle);
         holder.descriptionTV.setText(pDescription);
@@ -102,6 +106,18 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             catch (Exception e){
                 Log.d(TAG, "onBindViewHolder: Post Image " + e.getMessage());
             }
+        }
+        // set video
+        if (pVideo.isEmpty()){
+            holder.videoView.setVisibility(View.GONE);
+        }
+        else {
+            MediaController mediaController = new MediaController(context);
+            mediaController.setAnchorView(holder.videoView);
+            Uri uri = Uri.parse(pVideo);
+            holder.videoView.setMediaController(mediaController);
+            holder.videoView.setVideoURI(uri);
+            holder.videoView.start();
         }
 
         holder.moreButton.setOnClickListener(new View.OnClickListener() {
@@ -144,20 +160,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
              }
          });
 
-        holder.commentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Comment", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        holder.shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
     @Override
@@ -167,10 +169,11 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
     class MyHolder extends RecyclerView.ViewHolder{
 
-        ImageButton likeButton, commentButton, shareButton, moreButton;
+        ImageButton likeButton, moreButton;
         TextView nameTV, timeTV, titleTV, descriptionTV, likesTV;
         ImageView postIV;
         CircularImageView dpImage;
+        VideoView videoView;
 
 
         public MyHolder(@NonNull View itemView) {
@@ -178,8 +181,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
             //init views
             likeButton = itemView.findViewById(R.id.row_likeButton);
-            commentButton = itemView.findViewById(R.id.row_commentButton);
-            shareButton = itemView.findViewById(R.id.row_shareButton);
             moreButton = itemView.findViewById(R.id.row_moreButton);
             nameTV = itemView.findViewById(R.id.row_UserName);
             timeTV = itemView.findViewById(R.id.row_time);
@@ -188,6 +189,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             likesTV = itemView.findViewById(R.id.row_likes);
             postIV = itemView.findViewById(R.id.row_postImage);
             dpImage = itemView.findViewById(R.id.row_dp);
+            videoView = itemView.findViewById(R.id.row_videoView);
         }
     }
 
